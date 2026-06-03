@@ -44,11 +44,13 @@ contract PrimeVault is Ownable {
 
         stakingToken.safeTransferFrom(msg.sender, address(this), amount);
 
+
+        emit Deposited(msg.sender, amount);
         deposits[msg.sender] += amount;
         totalDeposits += amount;
         lastClaimTime[msg.sender] = block.timestamp;
 
-        emit Deposited(msg.sender, amount);
+        
     }
 
     /**
