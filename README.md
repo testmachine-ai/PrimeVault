@@ -34,3 +34,4 @@ forge test
 2. Owner deposits ETH rewards and sets a reward rate
 3. Rewards accumulate based on deposit amount and time
 4. Users can withdraw tokens and claim accumulated ETH rewards
+
