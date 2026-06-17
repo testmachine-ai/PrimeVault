@@ -1,4 +1,4 @@
-# PrimeVault!
+# PrimeVault
 
 A staking vault protocol that allows users to deposit PRIME tokens and earn ETH rewards over time.
 
