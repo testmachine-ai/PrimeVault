@@ -9,6 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * @title PrimeVault
  * @notice Staking vault that accepts PRIME tokens and distributes ETH rewards
  * @dev Users deposit PRIME tokens to earn a share of ETH rewards deposited by the owner
+ * @custom:scan-test incremental-scan validation run 2026-06-19
  */
 contract PrimeVault is Ownable {
     using SafeERC20 for IERC20;
