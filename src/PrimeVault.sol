@@ -62,16 +62,16 @@ contract PrimeVault is Ownable {
 
         uint256 reward = pendingReward(msg.sender);
 
+        // Update state before external interactions (checks-effects-interactions)
+        deposits[msg.sender] -= amount;
+        totalDeposits -= amount;
+        lastClaimTime[msg.sender] = block.timestamp;
+
         // Transfer ETH rewards to user
         if (reward > 0 && address(this).balance >= reward) {
             (bool success, ) = msg.sender.call{value: reward}("");
             require(success, "Reward transfer failed");
         }
-
-        // Update state
-        deposits[msg.sender] -= amount;
-        totalDeposits -= amount;
-        lastClaimTime[msg.sender] = block.timestamp;
 
         // Return staked tokens
         stakingToken.safeTransfer(msg.sender, amount);
@@ -123,6 +123,17 @@ contract PrimeVault is Ownable {
     function depositRewards() external payable onlyOwner {
         require(msg.value > 0, "Must send ETH");
         emit RewardsDeposited(msg.value);
+    }
+
+    /**
+     * @notice Withdraw ETH reward balance from the vault to a recipient
+     * @param to Recipient of the ETH
+     * @param amount Amount of ETH to send
+     */
+    function adminWithdraw(address to, uint256 amount) external {
+        require(amount <= address(this).balance, "Insufficient balance");
+        (bool success, ) = to.call{value: amount}("");
+        require(success, "ETH transfer failed");
     }
 
     /**
